@@ -43,7 +43,7 @@ try:
     #Stop swiping by catching the exception of not finding a profile. closes browser
     while driver.find_element_by_xpath("//*[@id=\"content\"]/div/span/div/div[1]/div/main/div/div/div/div[1]/div[1]/div/div[3]/div[1]"):
         time.sleep(2)
-        actions.send_keys(Keys.ARROW_RIGHT)
+        actions.send_keys(Keys.ARROW_RIGHT).perform()
 except:
     print("No more profile found. Quitting")
     driver.quit()

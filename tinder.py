@@ -5,20 +5,20 @@ from selenium.webdriver.common.keys import Keys
 
 driver = webdriver.Chrome()
 driver.get('https://www.facebook.com/')
-print("Opened facebook...")
+print("Opened facebook. Please enter username")
 a = driver.find_element_by_id('email')
-a.send_keys('email@emaildomain.com')
-print("Email Id entered...")
+a.send_keys(input())
+print("Email Id entered. Please enter password")
 b = driver.find_element_by_id('pass')
-b.send_keys('FBPassword')
+b.send_keys(input())
 print("Password entered...")
 c = driver.find_element_by_id('loginbutton')
 c.click()
 driver.get('http://tinder.com')
 print("Facebook Login complete. lets go to tinder")
 time.sleep(5)
-driver.find_element_by_xpath("//*[@id=\"modal-manager\"]/div/div/div[2]/div[1]/div/div[3]/button[1]/span").click();
 print("Clicking on sign into facebook")
+driver.find_element_by_xpath("//*[@id=\"modal-manager\"]/div/div/div[2]/div[1]/div/div[3]/button[1]/span").click();
 time.sleep(2)
 try:
     print("Clicking on tutorial prompts")

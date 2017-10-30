@@ -20,7 +20,10 @@ class Swiper():
         print("Password entered. Logging in.")
         c = self.driver.find_element_by_id('loginbutton')
         c.click()
-        # TODO add a check to ensure FB login worked
+        try: #Check whether login was successful by finding the home button
+            self.driver.find_element_by_id('u_0_c')
+        except:
+            return False
         return True
 
     def tinder_login(self):
@@ -29,7 +32,7 @@ class Swiper():
         print("Clicking on sign in with Facebook.")
         self.driver.find_element_by_xpath("//*[@id=\"modal-manager\"]/div/div/div[2]/div[1]/div/div[3]/button[1]/span").click();
         time.sleep(2)
-        try:
+        try: #Selenium scripts open a testing environment in chrome. Every login acts like a brand new login. Must click through tutorial
             print("Dismissing tutorial prompts")
             self.driver.find_element_by_xpath("//*[@id=\"content\"]/div/span/div/div[2]/div/div[1]/div[1]/div/button/span/span").click()
             print("Prompt 1")
@@ -55,14 +58,17 @@ class Swiper():
         try:
             #Stop swiping by catching the exception of not finding a profile. closes browser
             while self.driver.find_element_by_xpath("//*[@id=\"content\"]/div/span/div/div[1]/div/main/div/div/div/div[1]/div[1]/div/div[3]/div[1]"):
-                time.sleep(2)
                 actions.send_keys(Keys.ARROW_RIGHT).perform()
+                time.sleep(2)
         except:
             print("No more profiles found. Quitting.")
             self.driver.quit()
 
 if __name__ == "__main__":
     swiper = Swiper()
-    swiper.fb_login()
-    if swiper.tinder_login():
-        swiper.swipe_tinder()
+    if(swiper.fb_login()):
+        if swiper.tinder_login():
+            swiper.swipe_tinder()
+    else:
+        print("Facebook login failed, Quitting")
+        swiper.driver.quit()
